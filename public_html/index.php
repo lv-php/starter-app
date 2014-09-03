@@ -157,14 +157,18 @@ $responseContent .= '<form method="POST">
 
     if ($topics) {
         /**
+         * @var $voteRepository LVPHP\Repositories\VoteRepository
+         */
+        $voteRepository = $entityManager->getRepository('LVPHP\Models\Vote');
+        /**
          * @var $topic Topic
          */
         foreach ($topics as $topic) {
             $responseContent .= '<hr />';
             $responseContent .= '<h4> Title : ' . htmlentities($topic->getHeader()) . '</h4>';
             $responseContent .= '<p> Description : ' . htmlentities($topic->getBody()) . '</p>';
-            $responseContent .= '<h4> Votes : ' . $entityManager->getRepository('LVPHP\Models\Vote')->getTotalVotesForTopic($topic) . '</h4>';
-            $vote = $entityManager->getRepository('LVPHP\Models\Vote')->userHasVoted($topic, ip2long($request->getClientIp()));
+            $responseContent .= '<h4> Votes : ' . count($voteRepository->findAllVotesForTopic($topic)) . '</h4>';
+            $vote = $voteRepository->findVoteFromTopicBasedOnIP($topic, $request->getClientIp());
             if (empty($vote)) {
                 $responseContent .= '<form method="POST">
                                         <input type="hidden" name="topic_id" value="' . $topic->getId() .'">

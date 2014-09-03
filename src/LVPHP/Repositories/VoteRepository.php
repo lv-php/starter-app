@@ -7,15 +7,13 @@ use LVPHP\Models\Topic;
 
 class VoteRepository extends EntityRepository
 {
-    public function getTotalVotesForTopic(Topic $topic)
+    public function findAllVotesForTopic(Topic $topic)
     {
-        $votes = $this->findBy(array('topic' => $topic));
-        return count($votes);
+        return $this->findBy(array('topic' => $topic));
     }
 
-    public function userHasVoted(Topic $topic, $ip)
+    public function findVoteFromTopicBasedOnIP(Topic $topic, $ip)
     {
-        $vote = $this->findBy(array('topic' => $topic, 'ip' => $ip));
-        return !empty($vote);
+        return $this->findOneBy(array('topic' => $topic, 'ip' => ip2long($ip)));
     }
 }
