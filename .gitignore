@@ -1,1 +1,3 @@
-registry\.sq3
+sqlite/lvphp.sq3
+/vendor/
+.idea/
