@@ -119,9 +119,25 @@ try {
 $responseContent = '
 <!DOCTYPE html>
 <html>
+<head>
+<title>LVPHP.ORG</title>
+<meta charset="UTF-8">
+<meta name="description" content="Las Vegas PHP Users Group">
+<meta name="keywords" content="Las Vegas PHP Users Group">
+<meta name="author" content="lvphp.org">
+<!-- JQUERY UI CSS -->
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" /
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="../css/lvphp_custom.css">
+</head>
 <body>
+<div class="container" id="page_container">
+<div id="top_header" class="document-header">
 <div>
     <h1>Las Vegas PHP User Group - LVPHP.org</h1>
+</div>
 </div>
 <div>
     <h2>Topics Picker</h2>
@@ -181,7 +197,16 @@ $responseContent .= '<form method="POST">
     }
 
 $responseContent .= '</div>
+</div>
 </body>
+<footer>
+<!-- Jquery  -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<!--Bootstrap JS Files-->
+
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+</footer>
 </html>';
 
 // Set and send response
