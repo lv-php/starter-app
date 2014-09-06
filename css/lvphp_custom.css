@@ -1,14 +1,34 @@
 .document-header{
     position:relative;
     padding:30px 15px;
-    color:#cdbfe3;
+    backgroun-color: #8892BF;
     text-align:center;
     text-shadow:0 1px 0 rgba(0,0,0,.1);
-    background-color:#6f5499;
-    background-image:-webkit-gradient(linear,left top,left bottom,from(#563d7c),to(#6f5499));
-    background-image:-webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
-    background-image:-o-linear-gradient(top,#563d7c 0,#6f5499 100%);
-    background-image:linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);
-    background-repeat:repeat-x
+    background-color: #8892BF;
+    border-bottom: 5px solid #4F5B93;
+}
+.navbar, .navbar-brand {
+    font-size: 1.5em;
+}
+.section-odd{
+    background-color: #E9E9E9;
+    min-height: 100px;
+    padding: 1%
+}
+.section-even{
+    background-color: #FFFFFF;
+    min-height: 100px;
+    padding: 1%;
+    border: 1px solid #E9E9E9
+}
+.section-header{
+    text-align: center;
+}
+p.about-text{
+    font-size: 1.5em;
+}
+.thumbnail-title{
+    text-align: center;
+    font-size: 2em;
+    font-weight: bolder;
 }
