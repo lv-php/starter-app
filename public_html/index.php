@@ -196,6 +196,78 @@ or just mingle, join the group and participate on the adventure.</p>
 
 <!-- About US End -->
 
+<!-- Begin Meetups -->
+<div class="section-even">
+<a name="meetup" id="meetup" href="#meetup"></a>
+<h1 class="section-header">Upcoming Meetups</h1>
+';
+try {
+    require_once('../src/Meetup/meetup.php');
+    $meetup = new Meetup(array(
+        'key' => '415a4025535743759555174434b7a46'
+    ));
+    $events = $meetup->getEvents(array(
+        'group_urlname' => 'Las-Vegas-PHP-Users-Group'
+    ));
+
+    if($events){
+        $i=1;
+        foreach ($events as $event){
+            if ($i < 3){
+
+                $responseContent.= '<div class="media">
+
+                  <a class="pull-left meetup" href="'.$event->event_url.'" target="_blank">
+                    <button class="btn btn-danger meetup" type="button">
+                    <span class="meetup-date">'.date("l M jS",($event->time)/1000) ."<br/>" .date("g:i A",($event->time)/1000). '</span>
+                    </button>
+
+                  </a>
+
+                  <div class="media-body">
+                    <h3 class="media-heading">'.$event->name.'</h3>
+
+                    <span class="text-muted">'.$event->description   .'</span>
+                    <p><a href="'.$event->event_url.'" target="_blank">
+                    <button class="btn btn-danger" type="button">
+                    <span class="meetup-date">RSVP</span> to join <span class="badge">'. $event->yes_rsvp_count .' others</span>
+                    </button>
+
+                  </a></p>
+                  Location: <br/>
+                    <a href="https://www.google.com/maps/place/'.$event->venue->address_1.','.$event->venue->city.','. $event->venue->state.'" target="_blank">'.$event->venue->name .'<br/>'.$event->venue->address_1 .'<br/>'. $event->venue->city  .', '.$event->venue->state.'
+                    </a>
+
+                  </div>
+                </div><div class="meetup-border"></div>';
+            }
+            $i++;
+
+        }
+    }
+    else{
+        $responseContent .= '<h4>No Events Currently Scheduled</h4>';
+    }
+}
+catch (Exception $e) {
+    // The default/master exception handler will log the error and display to the user
+
+    // Generate a Unique ID to identify this error
+    $errorId = uniqid('ERROR-');
+
+    // Add a nondescript error to the errors to show the user and include the error ID for reference
+    $errors[] = sprintf('An application error occurred [%s]', $errorId);
+    if ($isDevMode) {
+        $errors[] = sprintf('Error message : %s $s Trace : %s', $e->getMessage(), PHP_EOL, $e->getTraceAsString());
+    }
+    error_log(sprintf('%s: %s', $errorId, $e->getMessage()));
+}
+$responseContent .='
+</div>
+
+
+<!-- End Meetups-->
+<!-- Begin Topic Picker -->
 <div class="section-even">
 <a name="topic_picker" id="topic_picker" href="topic_picker"></a>
 <div>

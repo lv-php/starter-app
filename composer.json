@@ -16,5 +16,8 @@
         "symfony/http-foundation": "2.5.x-dev",
         "doctrine/common": "2.5.x-dev",
         "symfony/swiftmailer-bundle": "2.1.x-dev"
+    },
+    "autoload": {
+        "files": ["src/LVPHP/Models/Topic.php", "src/LVPHP/Models/Vote.php"]
     }
 }
