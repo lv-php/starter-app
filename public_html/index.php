@@ -155,7 +155,7 @@ $responseContent = '
         <li><a href="#meetup">Meetups</a></li>
          <li><a href="#topic_picker">Upcoming Topics</a></li>
           <li><a href="#sponsors">Sponsors</a></li>
-        <li class="dropdown">
+        <!--<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">Action</a></li>
@@ -166,7 +166,7 @@ $responseContent = '
             <li class="divider"></li>
             <li><a href="#">One more separated link</a></li>
           </ul>
-        </li>
+        </li>-->
       </ul>
         </li>
       </ul>
@@ -201,6 +201,9 @@ or just mingle, join the group and participate on the adventure.</p>
 <a name="meetup" id="meetup" href="#meetup"></a>
 <h1 class="section-header">Upcoming Meetups</h1>
 ';
+/**
+ * Use Meetup.com API to retrieve upcoming meetups for the Las-Vegas-PHP-Users-Group.
+ */
 try {
     require_once('../src/Meetup/meetup.php');
     $meetup = new Meetup(array(
@@ -213,7 +216,8 @@ try {
     if($events){
         $i=1;
         foreach ($events as $event){
-            if ($i < 3){
+            //show next 3 events
+            if ($i <= 3){
 
                 $responseContent.= '<div class="media">
 

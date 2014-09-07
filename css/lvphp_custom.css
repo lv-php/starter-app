@@ -1,3 +1,6 @@
+body{
+    background-color: #E9E9E9;
+}
 .document-header{
     position:relative;
     padding:30px 15px;
@@ -13,7 +16,9 @@
 .section-odd{
     background-color: #E9E9E9;
     min-height: 100px;
-    padding: 1%
+    padding: 1%;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #FFFFFF;
 }
 .section-even{
     background-color: #FFFFFF;
