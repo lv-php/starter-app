@@ -1,3 +1,5 @@
 sqlite/lvphp.sq3
 /vendor/
 .idea/
+composer.lock
+composer.phar

@@ -1,0 +1,23 @@
+{
+    "name": "shad/starter-app",
+    "description": "LVPHP.org project forked from Josh Copeland's github which was forked from Adams Englander's",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Shad Mickelberry",
+            "email": "shad@shad.me"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "2.4.0-RC2",
+        "symfony/finder": "2.5.x-dev",
+        "symfony/console": "2.5.x-dev",
+        "symfony/http-foundation": "2.5.x-dev",
+        "doctrine/common": "2.5.x-dev",
+        "symfony/swiftmailer-bundle": "2.1.x-dev"
+    },
+    "autoload": {
+        "files": ["src/LVPHP/Models/Topic.php", "src/LVPHP/Models/Vote.php"]
+    }
+}

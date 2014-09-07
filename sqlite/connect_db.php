@@ -1,4 +1,4 @@
-<?php
+s<?php
 //Init doctrine connection
 $config = new \Doctrine\DBAL\Configuration();
 //sqlite3 connection info

@@ -119,12 +119,159 @@ try {
 $responseContent = '
 <!DOCTYPE html>
 <html>
+<head>
+<title>LVPHP.ORG</title>
+<meta charset="UTF-8">
+<meta name="description" content="Las Vegas PHP Users Group">
+<meta name="keywords" content="Las Vegas PHP Users Group">
+<meta name="author" content="lvphp.org">
+<!-- JQUERY UI CSS -->
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" /
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="../css/lvphp_custom.css">
+</head>
 <body>
+
+
+<div class="container" id="page_container">
+<!--NavBar Start     -->
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+
+      </button>
+      <a class="navbar-brand" href="#">lvphp.org</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#about">About Us</a></li>
+        <li><a href="#meetup">Meetups</a></li>
+         <li><a href="#topic_picker">Upcoming Topics</a></li>
+          <li><a href="#sponsors">Sponsors</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<!--NavBar End -->
+
+<!-- Header Begin -->
+<div id="top_header" class="document-header">
 <div>
+    <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/archive/2/27/20100303222348%21PHP-logo.svg/120px-PHP-logo.svg.png" alt="PHP Logo">
     <h1>Las Vegas PHP User Group - LVPHP.org</h1>
 </div>
+</div>
+<!-- Header End -->
+<!-- About Us Begin -->
+<div class="section-odd">
+<a name="about" href="#about"></a>
+<h1 class="section-header">About Us</h1>
+<p class="about-text">The Las Vegas PHP Users Group is a group dedicated to PHP developers learning from and teaching each other.
+Many PHP developers are experts in one segment or another. This group will be an opportunity for all of us to teach
+hat we know well and learn what we do not. All skill levels are sought after. If you are looking to teach, learn, network,
+or just mingle, join the group and participate on the adventure.</p>
+
+</div>
+
+<!-- About US End -->
+
+<!-- Begin Meetups -->
+<div class="section-even">
+<a name="meetup" id="meetup" href="#meetup"></a>
+<h1 class="section-header">Upcoming Meetups</h1>
+';
+try {
+    require_once('../src/Meetup/meetup.php');
+    $meetup = new Meetup(array(
+        'key' => '415a4025535743759555174434b7a46'
+    ));
+    $events = $meetup->getEvents(array(
+        'group_urlname' => 'Las-Vegas-PHP-Users-Group'
+    ));
+
+    if($events){
+        $i=1;
+        foreach ($events as $event){
+            if ($i < 3){
+
+                $responseContent.= '<div class="media">
+
+                  <a class="pull-left meetup" href="'.$event->event_url.'" target="_blank">
+                    <button class="btn btn-danger meetup" type="button">
+                    <span class="meetup-date">'.date("l M jS",($event->time)/1000) ."<br/>" .date("g:i A",($event->time)/1000). '</span>
+                    </button>
+
+                  </a>
+
+                  <div class="media-body">
+                    <h3 class="media-heading">'.$event->name.'</h3>
+
+                    <span class="text-muted">'.$event->description   .'</span>
+                    <p><a href="'.$event->event_url.'" target="_blank">
+                    <button class="btn btn-danger" type="button">
+                    <span class="meetup-date">RSVP</span> to join <span class="badge">'. $event->yes_rsvp_count .' others</span>
+                    </button>
+
+                  </a></p>
+                  Location: <br/>
+                    <a href="https://www.google.com/maps/place/'.$event->venue->address_1.','.$event->venue->city.','. $event->venue->state.'" target="_blank">'.$event->venue->name .'<br/>'.$event->venue->address_1 .'<br/>'. $event->venue->city  .', '.$event->venue->state.'
+                    </a>
+
+                  </div>
+                </div><div class="meetup-border"></div>';
+            }
+            $i++;
+
+        }
+    }
+    else{
+        $responseContent .= '<h4>No Events Currently Scheduled</h4>';
+    }
+}
+catch (Exception $e) {
+    // The default/master exception handler will log the error and display to the user
+
+    // Generate a Unique ID to identify this error
+    $errorId = uniqid('ERROR-');
+
+    // Add a nondescript error to the errors to show the user and include the error ID for reference
+    $errors[] = sprintf('An application error occurred [%s]', $errorId);
+    if ($isDevMode) {
+        $errors[] = sprintf('Error message : %s $s Trace : %s', $e->getMessage(), PHP_EOL, $e->getTraceAsString());
+    }
+    error_log(sprintf('%s: %s', $errorId, $e->getMessage()));
+}
+$responseContent .='
+</div>
+
+
+<!-- End Meetups-->
+<!-- Begin Topic Picker -->
+<div class="section-even">
+<a name="topic_picker" id="topic_picker" href="topic_picker"></a>
 <div>
-    <h2>Topics Picker</h2>
+    <h1 class="section-header">Topics Picker</h1>
     <p>To suggest a topic, simply enter a title and description of what you want to hear about.</p>';
 
 // If there are errors, display them to the user
@@ -180,8 +327,53 @@ $responseContent .= '<form method="POST">
         $responseContent .= '<h4>There are currently no topics.</h4>';
     }
 
-$responseContent .= '</div>
+$responseContent .= '</div></div>
+<div class="section-odd">
+<a name="sponsors" id="sponsors" href="#sponsors"></a>
+<h1 class="section-header">Sponsors</h1>
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="../img/logo_jetbrains.png" alt="Jetbrains">
+      <div class="caption">
+        <h3 class="thumbnail-title">JetBrains</h3>
+        <p>JetBrains provides licenses for PHPStorm that are raffled away at events</p>
+        <p><a href="http://www.jetbrains.com/" target="_blank" class="btn btn-primary" role="button">Learn More</a> </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="../img/logo_innovation.png" alt="InNEVation Center">
+      <div class="caption">
+        <h3 class="thumbnail-title">InNEVation Center</h3>
+        <p>InNEVation Center provides space for our meetups</p>
+         <p><a href="http://www.innevation.com/" target="_blank" class="btn btn-primary" role="button">Learn More</a> </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="../img/logo_coupla.jpg" alt="Coupla">
+      <div class="caption">
+        <h3 class="thumbnail-title">Thumbnail label</h3>
+        <p>Coupla pays for our Meetup.com expenses</p>
+        <p><a href="http://www.coupla.co/" target="_blank" class="btn btn-primary" role="button">Learn More</a> </p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
 </body>
+<footer>
+<!-- Jquery  -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+<!--Bootstrap JS Files-->
+
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+</footer>
 </html>';
 
 // Set and send response
