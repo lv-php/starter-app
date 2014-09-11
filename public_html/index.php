@@ -126,11 +126,12 @@ $responseContent = '
 <meta name="keywords" content="Las Vegas PHP Users Group">
 <meta name="author" content="lvphp.org">
 <!-- JQUERY UI CSS -->
-<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" /
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../css/lvphp_custom.css">
+<link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico"/>
 </head>
 <body>
 
