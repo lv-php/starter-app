@@ -207,7 +207,7 @@ or just mingle, join the group and participate on the adventure.</p>
  * Use Meetup.com API to retrieve upcoming meetups for the Las-Vegas-PHP-Users-Group.
  */
 try {
-   
+
     $meetup = new Meetup(array(
         'key' => '415a4025535743759555174434b7a46'
     ));
