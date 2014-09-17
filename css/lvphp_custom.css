@@ -1,0 +1,60 @@
+body{
+    background-color: #E9E9E9;
+}
+.document-header{
+    position:relative;
+    padding:30px 15px;
+    backgroun-color: #8892BF;
+    text-align:center;
+    text-shadow:0 1px 0 rgba(0,0,0,.1);
+    background-color: #8892BF;
+    border-bottom: 5px solid #4F5B93;
+}
+.navbar, .navbar-brand {
+    font-size: 1.5em;
+}
+.section-odd{
+    background-color: #E9E9E9;
+    min-height: 100px;
+    padding: 1%;
+    border-left: 2px solid #FFFFFF;
+    border-right: 2px solid #FFFFFF;
+}
+.section-even{
+    background-color: #FFFFFF;
+    min-height: 100px;
+    padding: 1%;
+    border: 1px solid #E9E9E9
+}
+.section-header{
+    text-align: center;
+}
+p.about-text{
+    font-size: 1.5em;
+}
+.thumbnail-title{
+    text-align: center;
+    font-size: 2em;
+    font-weight: bolder;
+}
+.meetup-date{
+    font-size: 1.4em;
+    font-weight: bold;
+
+}
+.btn.btn-danger.meetup{
+    text-align: left;
+    width: 200px;
+    padding-right: 15%;
+    margin-right: 20px;
+
+}
+
+.meetup-border {
+    border-bottom: 4px solid #c12e2a;
+    margin-top: 2%;
+}
+.text-muted{
+    color: #737373;
+    font-size: 1.2em;
+}
