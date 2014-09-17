@@ -1,23 +1,22 @@
 {
-    "name": "shad/starter-app",
-    "description": "LVPHP.org project forked from Josh Copeland's github which was forked from Adams Englander's",
+    "name": "psycodedotorg/lvphp-org",
+    "description": "A website for the Las Vegas PHP Users Group.",
     "minimum-stability": "stable",
     "license": "proprietary",
     "authors": [
+        {
+            "name": "Josh Copeland",
+            "email": "josh@psycode.org"
+        },
         {
             "name": "Shad Mickelberry",
             "email": "shad@shad.me"
         }
     ],
     "require": {
-        "doctrine/dbal": "2.4.0-RC2",
-        "doctrine/orm": "2.4.0-RC2",
-        "symfony/finder": "2.5.x-dev",
-        "symfony/console": "2.5.x-dev",
-        "symfony/http-foundation": "2.5.x-dev",
-        "symfony/swiftmailer-bundle": "2.1.x-dev",
-        "phpdocumentor/template-zend": "1.3.x",
-        "phpdocumentor/phpdocumentor": "2.7.0"
+        "doctrine/orm": "2.4.*",
+        "symfony/yaml": "2.*",
+        "symfony/http-foundation": "2.5.*"
     },
     "autoload": {
         "psr-0": { "": "src/" }
