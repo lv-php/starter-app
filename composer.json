@@ -10,15 +10,17 @@
         }
     ],
     "require": {
+        "doctrine/dbal": "2.4.0-RC2",
         "doctrine/orm": "2.4.0-RC2",
-        "doctrine/dbal": "2.4-beta",
         "symfony/finder": "2.5.x-dev",
         "symfony/console": "2.5.x-dev",
         "symfony/http-foundation": "2.5.x-dev",
-        "doctrine/common": "2.5.x-dev",
-        "symfony/swiftmailer-bundle": "2.1.x-dev"
+        "symfony/swiftmailer-bundle": "2.1.x-dev",
+        "phpdocumentor/template-zend": "1.3.x",
+        "phpdocumentor/phpdocumentor": "2.7.0"
     },
     "autoload": {
-        "files": ["src/LVPHP/Models/Topic.php", "src/LVPHP/Models/Vote.php"]
+        "psr-0": { "": "src/" }
+
     }
 }
