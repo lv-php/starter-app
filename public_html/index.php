@@ -129,10 +129,10 @@ $responseContent = '
 <!-- JQUERY UI CSS -->
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css">
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../css/lvphp_custom.css">
-<link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico"/>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/lvphp_custom.css">
+<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
 </head>
 <body>
 
@@ -340,7 +340,7 @@ $responseContent .= '</div></div>
 <div class="row">
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="../img/logo_jetbrains.png" alt="Jetbrains">
+      <img src="img/logo_jetbrains.png" alt="Jetbrains">
       <div class="caption">
         <h3 class="thumbnail-title">JetBrains</h3>
         <p>JetBrains provides licenses for PHPStorm that are raffled away at events</p>
@@ -350,7 +350,7 @@ $responseContent .= '</div></div>
   </div>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="../img/logo_innovation.png" alt="InNEVation Center">
+      <img src="img/logo_innovation.png" alt="InNEVation Center">
       <div class="caption">
         <h3 class="thumbnail-title">InNEVation Center</h3>
         <p>InNEVation Center provides space for our meetups</p>
@@ -360,7 +360,7 @@ $responseContent .= '</div></div>
   </div>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="../img/logo_coupla.jpg" alt="Coupla">
+      <img src="img/logo_coupla.jpg" alt="Coupla">
       <div class="caption">
         <h3 class="thumbnail-title">Thumbnail label</h3>
         <p>Coupla pays for our Meetup.com expenses</p>
@@ -378,7 +378,7 @@ $responseContent .= '</div></div>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 <!--Bootstrap JS Files-->
 
-<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </footer>
 </html>';
 
