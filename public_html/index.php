@@ -27,6 +27,7 @@ require_once '../bootstrap.php';
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use LVPHP\Models\Topic;
+use LVPHP\Meetup\Meetup;
 
 $request = Request::createFromGlobals();
 
@@ -206,7 +207,7 @@ or just mingle, join the group and participate on the adventure.</p>
  * Use Meetup.com API to retrieve upcoming meetups for the Las-Vegas-PHP-Users-Group.
  */
 try {
-    require_once('../src/Meetup/meetup.php');
+   
     $meetup = new Meetup(array(
         'key' => '415a4025535743759555174434b7a46'
     ));
