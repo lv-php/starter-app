@@ -121,11 +121,11 @@ $responseContent = '
 <!DOCTYPE html>
 <html>
 <head>
-<title>LVPHP.ORG</title>
+<title>Las Vegas PHP Users Group - LVPHP.org</title>
 <meta charset="UTF-8">
-<meta name="description" content="Las Vegas PHP Users Group">
+<meta name="description" content="Las Vegas PHP Users Group is a community of PHP developers looking to share and learn. All events are free to attend and can be found here.">
 <meta name="keywords" content="Las Vegas PHP Users Group">
-<meta name="author" content="lvphp.org">
+<meta name="author" content="The LVPHPUG Community">
 <!-- JQUERY UI CSS -->
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css">
 <!-- Bootstrap CSS -->
@@ -147,7 +147,7 @@ $responseContent = '
         <span class="sr-only">Toggle navigation</span>
 
       </button>
-      <a class="navbar-brand" href="#">lvphp.org</a>
+      <a class="navbar-brand" href="#">LVPHP.org</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -189,11 +189,7 @@ $responseContent = '
 <div class="section-odd">
 <a name="about" href="#about"></a>
 <h1 class="section-header">About Us</h1>
-<p class="about-text">The Las Vegas PHP Users Group is a group dedicated to PHP developers learning from and teaching each other.
-Many PHP developers are experts in one segment or another. This group will be an opportunity for all of us to teach
-hat we know well and learn what we do not. All skill levels are sought after. If you are looking to teach, learn, network,
-or just mingle, join the group and participate on the adventure.</p>
-
+<p class="about-text">The Las Vegas PHP Users Group is a group dedicated to PHP developers learning from and teaching each others. Many PHP developers are experts in one segment or another. This group is an opportunity for all of us to teach what we know well and learn something new. All skill levels are sought after. If you are looking to teach, learn, network, or just mingle, join the group and participate on the adventure.</p>
 </div>
 
 <!-- About US End -->
@@ -208,6 +204,7 @@ or just mingle, join the group and participate on the adventure.</p>
  */
 try {
 
+    //@TODO move this key to a private repo
     $meetup = new Meetup(array(
         'key' => '415a4025535743759555174434b7a46'
     ));
@@ -343,7 +340,7 @@ $responseContent .= '</div></div>
       <img src="img/logo_jetbrains.png" alt="Jetbrains">
       <div class="caption">
         <h3 class="thumbnail-title">JetBrains</h3>
-        <p>JetBrains provides licenses for PHPStorm that are raffled away at events</p>
+        <p>JetBrains provides licenses for PHPStorm that are raffled away at main events.</p>
         <p><a href="http://www.jetbrains.com/" target="_blank" class="btn btn-primary" role="button">Learn More</a> </p>
       </div>
     </div>
@@ -353,7 +350,7 @@ $responseContent .= '</div></div>
       <img src="img/logo_innovation.png" alt="InNEVation Center">
       <div class="caption">
         <h3 class="thumbnail-title">InNEVation Center</h3>
-        <p>InNEVation Center provides space for our meetups</p>
+        <p>InNEVation Center provides the co-working space for our meetups.</p>
          <p><a href="http://www.innevation.com/" target="_blank" class="btn btn-primary" role="button">Learn More</a> </p>
       </div>
     </div>
@@ -362,8 +359,8 @@ $responseContent .= '</div></div>
     <div class="thumbnail">
       <img src="img/logo_coupla.jpg" alt="Coupla">
       <div class="caption">
-        <h3 class="thumbnail-title">Thumbnail label</h3>
-        <p>Coupla pays for our Meetup.com expenses</p>
+        <h3 class="thumbnail-title">Coupla.co</h3>
+        <p>Coupla pays for our Meetup.com expenses and has great couples events.</p>
         <p><a href="http://www.coupla.co/" target="_blank" class="btn btn-primary" role="button">Learn More</a> </p>
       </div>
     </div>
