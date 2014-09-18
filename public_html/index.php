@@ -157,18 +157,18 @@ $responseContent = '
         <li><a href="#meetup">Meetups</a></li>
          <li><a href="#topic_picker">Upcoming Topics</a></li>
           <li><a href="#sponsors">Sponsors</a></li>
-        <!--<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">More<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
+            <li><a href="discussions.php#discussion">Discussions</a></li>
+            <!--<li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li class="divider"></li>
             <li><a href="#">Separated link</a></li>
             <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="#">One more separated link</a></li>-->
           </ul>
-        </li>-->
+        </li>
       </ul>
         </li>
       </ul>
@@ -209,14 +209,15 @@ try {
         'key' => '415a4025535743759555174434b7a46'
     ));
     $events = $meetup->getEvents(array(
-        'group_urlname' => 'Las-Vegas-PHP-Users-Group'
+        'group_urlname' => 'Las-Vegas-PHP-Users-Group',
+        'page'          => '3' //optional parameter that limits the number of responses returned
     ));
 
     if($events){
-        $i=1;
+
         foreach ($events as $event){
             //show next 3 events
-            if ($i <= 3){
+
 
                 $responseContent.= '<div class="media">
 
@@ -243,8 +244,6 @@ try {
 
                   </div>
                 </div><div class="meetup-border"></div>';
-            }
-            $i++;
 
         }
     }

@@ -11,22 +11,50 @@ class Meetup {
 	public function __construct(array $parameters = array()) {
 		$this->_parameters = array_merge($this->_parameters, $parameters);
 	}
-	
-	public function getEvents(array $parameters = array()) {
+
+    /**
+     * Parameters available rsvp, group_id, event_id, group_urlname, venue_id, member_id, time, group_domain, page, offset, desc, only, omit
+     * @param array $parameters
+     * @return mixed
+     */
+    public function getEvents(array $parameters = array()) {
 		return $this->get('/2/events', $parameters)->results;
 	}
 	
 	public function getPhotos(array $parameters = array()) {
 		return $this->get('/2/photos', $parameters)->results;
 	}
-	
-	public function getDiscussionBoards(array $parameters = array()) {
+
+    /**
+     * Retrieve the boards for a given Meetup Group
+     * required parameter urlname
+     * optional page, offset, desc, only, omit,
+     * @param array $parameters
+     * @return mixed
+     */
+    public function getDiscussionBoards(array $parameters = array()) {
 		return $this->get('/:urlname/boards', $parameters);
 	}
-	
-	public function getDiscussions(array $parameters = array()) {
-		return $this->get('/:urlname/boards/:bid/discussions', $parameters);
+
+    /**
+     * Retrieve the discussions of a group board.
+     * @param array $parameters
+     * @return mixed
+     */
+    public function getDiscussions(array $parameters = array()) {
+		return $this->get('/:urlname/boards/:bid/discussions/', $parameters);
 	}
+
+    /**
+     * Shad Mickelberry: Added this function to retrieve replies to post discussions.
+     * required parameters bid, did.
+     * optional prameters page, offset, desc, only, omit
+     * @param array $parameters
+     * @return mixed
+     */
+    public function getDiscussionsPosts(array $parameters = array()) {
+        return $this->get('/:urlname/boards/:bid/discussions/:did', $parameters);
+    }
 
 	public function getMembers(array $parameters = array()) {
 		return $this->get('/2/members', $parameters);
@@ -125,5 +153,15 @@ class Meetup {
 		
 		return $response;
 	}
+
+    /**
+     * Shad Mickelberry: This function modifies the date returned from the Meetup.com api response into a readable form.
+     * @param $date
+     * @return bool|string
+     */
+    public function modifyDate($date){
+        $modified_date = date("l M jS Y",($date)/1000);
+        return $modified_date;
+    }
 }
 
