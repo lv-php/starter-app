@@ -208,22 +208,28 @@ try {
     $meetup = new Meetup(array(
         'key' => '415a4025535743759555174434b7a46'
     ));
+
+    /**
+     * Use the Meetup Class to fetch upcoming events for our group
+     * The optional parameter page limits the number of responses from Meetup
+     */
+
     $events = $meetup->getEvents(array(
         'group_urlname' => 'Las-Vegas-PHP-Users-Group',
         'page'          => '3' //optional parameter that limits the number of responses returned
     ));
 
     if($events){
-
+        /**
+         * If there are any events loop through and display the date, topic and a  link
+         */
         foreach ($events as $event){
-            //show next 3 events
-
 
                 $responseContent.= '<div class="media">
 
                   <a class="pull-left meetup" href="'.$event->event_url.'" target="_blank">
                     <button class="btn btn-danger meetup" type="button">
-                    <span class="meetup-date">'.date("l M jS",($event->time)/1000) ."<br/>" .date("g:i A",($event->time)/1000). '</span>
+                    <span class="meetup-date">'.$meetup->modifyDate($event->time) .'</span>
                     </button>
 
                   </a>

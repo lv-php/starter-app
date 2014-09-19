@@ -171,7 +171,7 @@ try {
                       <p>'.$discussion->subject.'
                            <a class="meetup pull-right" href="http://www.meetup.com/Las-Vegas-PHP-Users-Group/messages/boards/thread/'.$discussion->id.'" target="_blank">
                                 <button class="btn btn-danger meetup" type="button">
-                                    <span class="meetup-date">Click to reply/view</span>
+                                    <span class="meetup-date">Click to reply to postl</span>
                                 </button>
                             </a>
                         </p>
