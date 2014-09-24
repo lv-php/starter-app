@@ -90,7 +90,7 @@ $responseContent = '
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">More<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="discussions.php#discussion">Discussions</a></li>
+            <li><a href="discussions.php#discussion"><h4>Discussions</h4></a></li>
             <!--<li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li class="divider"></li>
@@ -171,7 +171,7 @@ try {
                       <p>'.$discussion->subject.'
                            <a class="meetup pull-right" href="http://www.meetup.com/Las-Vegas-PHP-Users-Group/messages/boards/thread/'.$discussion->id.'" target="_blank">
                                 <button class="btn btn-danger meetup" type="button">
-                                    <span class="meetup-date">Click to reply to postl</span>
+                                    <span class="meetup-date">Click to reply to post</span>
                                 </button>
                             </a>
                         </p>
