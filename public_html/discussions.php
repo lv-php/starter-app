@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 Adam L. Englander
+ * Copyright (c) 2014 LVPHPUG - Las Vegas PHP User's Group
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -44,7 +44,6 @@ $body = null;
 $topics = null;
 $upvote = null;
 $responseContent = null;
-
 
 
 $responseContent = '
@@ -138,13 +137,15 @@ try {
      * Currently @ 7. May decrease for better page load speeds.
      */
 
-    $discussions = $meetup->getDiscussions(array(
-        'urlname' => 'Las-Vegas-PHP-Users-Group',
-        'bid'           => '8781472', //group board ID
-        'page'         => '7'
-    ));
+    $discussions = $meetup->getDiscussions(
+        array(
+            'urlname' => 'Las-Vegas-PHP-Users-Group',
+            'bid' => '8781472', //group board ID
+            'page' => '7'
+        )
+    );
 
-    if($discussions){
+    if ($discussions) {
 
         /**
          * Loop through each of the returned discussions and list the date created and subject.
@@ -152,24 +153,26 @@ try {
          * can also include any replies to the original post
          */
 
-        foreach ($discussions as $discussion){
-            /**
-             * Use the Meetup API to retrieve the posts for each discussion
-             * passing the board id and discussion id
-             */
-            $posts = $meetup->getDiscussionsPosts(array(
+        foreach ($discussions as $discussion) {
+        /**
+         * Use the Meetup API to retrieve the posts for each discussion
+         * passing the board id and discussion id
+         */
+            $posts = $meetup->getDiscussionsPosts(
+                array(
                     'urlname' => 'Las-Vegas-PHP-Users-Group',
-                    'bid'           => $discussion->board->id,
-                    'did'           => $discussion->id
-                ));
+                    'bid' => $discussion->board->id,
+                    'did' => $discussion->id
+                )
+            );
 
 
-                    $responseContent.=
-            '<ul class="media-list">
-                <li class="media">
-                    <h2 class="media-heading ">
-                      <p>'.$discussion->subject.'
-                           <a class="meetup pull-right" href="http://www.meetup.com/Las-Vegas-PHP-Users-Group/messages/boards/thread/'.$discussion->id.'" target="_blank">
+            $responseContent .=
+                '<ul class="media-list">
+                    <li class="media">
+                        <h2 class="media-heading ">
+                          <p>' . $discussion->subject . '
+                           <a class="meetup pull-right" href="http://www.meetup.com/Las-Vegas-PHP-Users-Group/messages/boards/thread/' . $discussion->id . '" target="_blank">
                                 <button class="btn btn-danger meetup" type="button">
                                     <span class="meetup-date">Click to reply to post</span>
                                 </button>
@@ -181,46 +184,47 @@ try {
             /**
              * Loop through the posts and display the user name and body of post
              */
-            foreach($posts as $post){
+            foreach ($posts as $post) {
                 $responseContent .= '
                 <li>
                 <div class="media">
-                    <a class="pull-left" href="'.$post->member->photo->thumb .'">
-                      <img class="media-object" alt="'.$post->member->name .'" src=" '.$post->member->photo->thumb.' " style="width: 64px; height: 64px;">
+                    <a class="pull-left" href="' . $post->member->photo->thumb . '">
+                      <img class="media-object" alt="' . $post->member->name . '" src=" ' . $post->member->photo->thumb . ' " style="width: 64px; height: 64px;">
                     </a>
 
                     <div class="media-body">
-                        <h3 class="media-heading"> '.$post->member->name.' On '.$meetup->modifyDate($post->created).'</h3>
-                        <span class="text-muted">'.$post->body.'</span>
+                        <h3 class="media-heading"> ' . $post->member->name . ' On ' . $meetup->modifyDate(
+                        $post->created
+                    ) . '</h3>
+                        <span class="text-muted">' . $post->body . '</span>
 
                      </div>
                 </div>
 
                      ';
-                    }
-                /*
-                 * Add a twitter search link for Vegas Tech to earch post put a red border to separate discussions.
-                 */
-                     $responseContent .= '
+            }
+            /*
+             * Add a twitter search link for Vegas Tech to earch post put a red border to separate discussions.
+             */
+            $responseContent .= '
                             <a href="https://twitter.com/search?q=vegastech">#VegasTech</a>
                             <div class="meetup-border"></div>
                       </li>
                 </ul>
                      ';
 
-                }
+        }
 
     }
-
     /**
-     * There should always be discussions but if not display them. Probably means someth
+     * There should always be discussions but if not display 'No Discussions Found'. This should be an indication that
+     * something went wrong.
      */
 
-    else{
-        $responseContent .= '<h4>No Discussions</h4>';
+    else {
+        $responseContent .= '<h4>No Discussions Found</h4>';
     }
-}
-catch (Exception $e) {
+} catch (Exception $e) {
     // The default/master exception handler will log the error and display to the user
 
     // Generate a Unique ID to identify this error
@@ -233,7 +237,7 @@ catch (Exception $e) {
     }
     error_log(sprintf('%s: %s', $errorId, $e->getMessage()));
 }
-$responseContent .='
+$responseContent .= '
 </div>
 
 

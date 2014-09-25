@@ -214,50 +214,50 @@ try {
      * The optional parameter page limits the number of responses from Meetup
      */
 
-    $events = $meetup->getEvents(array(
-        'group_urlname' => 'Las-Vegas-PHP-Users-Group',
-        'page'          => '3' //optional parameter that limits the number of responses returned
-    ));
+    $events = $meetup->getEvents(
+        array(
+            'group_urlname' => 'Las-Vegas-PHP-Users-Group',
+            'page' => '3' //optional parameter that limits the number of responses returned
+        )
+    );
 
-    if($events){
+    if ($events) {
         /**
          * If there are any events loop through and display the date, topic and a  link
          */
-        foreach ($events as $event){
+        foreach ($events as $event) {
 
-                $responseContent.= '<div class="media">
+            $responseContent .= '<div class="media">
 
-                  <a class="pull-left meetup" href="'.$event->event_url.'" target="_blank">
+                  <a class="pull-left meetup" href="' . $event->event_url . '" target="_blank">
                     <button class="btn btn-danger meetup" type="button">
-                    <span class="meetup-date">'.$meetup->modifyDate($event->time) .'</span>
+                    <span class="meetup-date">' . $meetup->modifyDate($event->time) . '</span>
                     </button>
 
                   </a>
 
                   <div class="media-body">
-                    <h3 class="media-heading">'.$event->name.'</h3>
+                    <h3 class="media-heading">' . $event->name . '</h3>
 
-                    <span class="text-muted">'.$event->description   .'</span>
-                    <p><a href="'.$event->event_url.'" target="_blank">
+                    <span class="text-muted">' . $event->description . '</span>
+                    <p><a href="' . $event->event_url . '" target="_blank">
                     <button class="btn btn-danger" type="button">
-                    <span class="meetup-date">RSVP</span> to join <span class="badge">'. $event->yes_rsvp_count .' others</span>
+                    <span class="meetup-date">RSVP</span> to join <span class="badge">' . $event->yes_rsvp_count . ' others</span>
                     </button>
 
                   </a></p>
                   Location: <br/>
-                    <a href="https://www.google.com/maps/place/'.$event->venue->address_1.','.$event->venue->city.','. $event->venue->state.'" target="_blank">'.$event->venue->name .'<br/>'.$event->venue->address_1 .'<br/>'. $event->venue->city  .', '.$event->venue->state.'
+                    <a href="https://www.google.com/maps/place/' . $event->venue->address_1 . ',' . $event->venue->city . ',' . $event->venue->state . '" target="_blank">' . $event->venue->name . '<br/>' . $event->venue->address_1 . '<br/>' . $event->venue->city . ', ' . $event->venue->state . '
                     </a>
 
                   </div>
                 </div><div class="meetup-border"></div>';
 
         }
-    }
-    else{
+    } else {
         $responseContent .= '<h4>No Events Currently Scheduled</h4>';
     }
-}
-catch (Exception $e) {
+} catch (Exception $e) {
     // The default/master exception handler will log the error and display to the user
 
     // Generate a Unique ID to identify this error
@@ -270,7 +270,7 @@ catch (Exception $e) {
     }
     error_log(sprintf('%s: %s', $errorId, $e->getMessage()));
 }
-$responseContent .='
+$responseContent .= '
 </div>
 
 
@@ -299,10 +299,10 @@ if (!empty($errors)) {
 $responseContent .= '<form method="POST">
         <div>
             <label for="header">Title: </label>
-            <input id="header" name="header" value="'. htmlentities($header) .'">
+            <input id="header" name="header" value="' . htmlentities($header) . '">
 
             <label for="body">Description: </label>
-            <input id="body" name="body" value="' . htmlentities($body) .'">
+            <input id="body" name="body" value="' . htmlentities($body) . '">
 
             <input type="submit" value="Create Topic">
         </div>
@@ -310,30 +310,30 @@ $responseContent .= '<form method="POST">
 </div>
 <div class="topics-list">';
 
-    if ($topics) {
-        /**
-         * @var $voteRepository LVPHP\Repositories\VoteRepository
-         */
-        $voteRepository = $entityManager->getRepository('LVPHP\Models\Vote');
-        /**
-         * @var $topic Topic
-         */
-        foreach ($topics as $topic) {
-            $responseContent .= '<hr />';
-            $responseContent .= '<h4> Title : ' . htmlentities($topic->getHeader()) . '</h4>';
-            $responseContent .= '<p> Description : ' . htmlentities($topic->getBody()) . '</p>';
-            $responseContent .= '<h4> Votes : ' . count($voteRepository->findAllVotesForTopic($topic)) . '</h4>';
-            $vote = $voteRepository->findVoteFromTopicBasedOnIP($topic, $request->getClientIp());
-            if (empty($vote)) {
-                $responseContent .= '<form method="POST">
-                                        <input type="hidden" name="topic_id" value="' . $topic->getId() .'">
+if ($topics) {
+    /**
+     * @var $voteRepository LVPHP\Repositories\VoteRepository
+     */
+    $voteRepository = $entityManager->getRepository('LVPHP\Models\Vote');
+    /**
+     * @var $topic Topic
+     */
+    foreach ($topics as $topic) {
+        $responseContent .= '<hr />';
+        $responseContent .= '<h4> Title : ' . htmlentities($topic->getHeader()) . '</h4>';
+        $responseContent .= '<p> Description : ' . htmlentities($topic->getBody()) . '</p>';
+        $responseContent .= '<h4> Votes : ' . count($voteRepository->findAllVotesForTopic($topic)) . '</h4>';
+        $vote = $voteRepository->findVoteFromTopicBasedOnIP($topic, $request->getClientIp());
+        if (empty($vote)) {
+            $responseContent .= '<form method="POST">
+                                        <input type="hidden" name="topic_id" value="' . $topic->getId() . '">
                                         <input type="submit" value="Up Vote">
                                      </form>';
-            }
         }
-    } else {
-        $responseContent .= '<h4>There are currently no topics.</h4>';
     }
+} else {
+    $responseContent .= '<h4>There are currently no topics.</h4>';
+}
 
 $responseContent .= '</div></div>
 <div class="section-odd">
