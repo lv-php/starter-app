@@ -222,9 +222,9 @@ try {
     );
 
     if ($events) {
-        /**
-         * If there are any events loop through and display the date, topic and a  link
-         */
+
+         // If there are any events loop through and display the date, topic and a  link
+
         foreach ($events as $event) {
 
             $responseContent .= '<div class="media">
@@ -242,7 +242,7 @@ try {
                     <span class="text-muted">' . $event->description . '</span>
                     <p><a href="' . $event->event_url . '" target="_blank">
                     <button class="btn btn-danger" type="button">
-                    <span class="meetup-date">RSVP</span> to join <span class="badge">' . $event->yes_rsvp_count . ' others</span>
+                    <span class="meetup-date">RSVP</span> to join <span class="badge">' . $event->yes_rsvp_count . ' others </span>
                     </button>
 
                   </a></p>
@@ -258,7 +258,6 @@ try {
         $responseContent .= '<h4>No Events Currently Scheduled</h4>';
     }
 } catch (Exception $e) {
-    // The default/master exception handler will log the error and display to the user
 
     // Generate a Unique ID to identify this error
     $errorId = uniqid('ERROR-');
@@ -271,11 +270,10 @@ try {
     error_log(sprintf('%s: %s', $errorId, $e->getMessage()));
 }
 $responseContent .= '
-</div>
-
-
-<!-- End Meetups-->
-<!-- Begin Topic Picker -->
+</div>';
+//<!-- End Meetups-->
+//<!-- Begin Topic Picker -->
+$responseContent .= '
 <div class="section-even">
 <a name="topic_picker" id="topic_picker" href="topic_picker"></a>
 <div>
