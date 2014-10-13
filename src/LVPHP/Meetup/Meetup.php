@@ -163,5 +163,23 @@ class Meetup {
         $modified_date = date("l M jS Y",($date)/1000);
         return $modified_date;
     }
+
+    /**
+     * Shad Mickelberry: This function parses the Meetup.com event_url variable to return the event id for
+     * use in the button API.
+     * Example: $event_url = 'http://www.meetup.com/Las-Vegas-PHP-Users-Group/events/207918112/';
+     * Output = '207918112';
+     * @param $event_url
+     * @return mixed
+     */
+    public function getEventIdFromURL($event_url) {
+        $url = substr($event_url, 0, -1);
+        $url_components = explode('/', $url);
+
+        $event_id = end($url_components);
+
+        return $event_id;
+
+    }
 }
 

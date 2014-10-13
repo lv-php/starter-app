@@ -240,12 +240,14 @@ try {
                     <h3 class="media-heading">' . $event->name . '</h3>
 
                     <span class="text-muted">' . $event->description . '</span>
+            <!-- Recreate the Meetup.com RSVP button  API to create RSVP button then display the number of users.-->
+                    <p>
+                        <a href="http://www.meetup.com/Las-Vegas-PHP-Users-Group/events/"' . $meetup->getEventIdFromURL($event->event_url) . '"
+                        data-event="' . $meetup->getEventIdFromURL($event->event_url) . '" class="mu-rsvp-btn">RSVP</a>
+                        <span class="meetup_rsvp"> to join <span class="badge">' . $event->yes_rsvp_count . '</span> others </span>
+                    </p>
                     <p><a href="' . $event->event_url . '" target="_blank">
-                    <button class="btn btn-danger" type="button">
-                    <span class="meetup-date">RSVP</span> to join <span class="badge">' . $event->yes_rsvp_count . ' others </span>
-                    </button>
 
-                  </a></p>
                   Location: <br/>
                     <a href="https://www.google.com/maps/place/' . $event->venue->address_1 . ',' . $event->venue->city . ',' . $event->venue->state . '" target="_blank">' . $event->venue->name . '<br/>' . $event->venue->address_1 . '<br/>' . $event->venue->city . ', ' . $event->venue->state . '
                     </a>
@@ -379,6 +381,8 @@ $responseContent .= '</div></div>
 <!--Bootstrap JS Files-->
 
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!--Meetup script for RSVP Button-->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s); js.id=id;js.async=true;js.src="https://secure.meetup.com/script/577045002335750872971/api/mu.btns.js?id=5rufi72ve0d82jgas2jp4l3a26";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","mu-bootjs");</script>
 </footer>
 </html>';
 
