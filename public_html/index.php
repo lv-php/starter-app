@@ -280,7 +280,7 @@ $responseContent .= '
 <a name="topic_picker" id="topic_picker" href="topic_picker"></a>
 <div>
     <h1 class="section-header">Topics Picker</h1>
-    <p>To suggest a topic, simply enter a title and description of what you want to hear about.</p>';
+    <h3 class="media-heading" id="topic-intro" name="topic-intro">To suggest a topic, simply enter a title and description of what you want to hear about.</h3>';
 
 // If there are errors, display them to the user
 if (!empty($errors)) {
@@ -304,7 +304,7 @@ $responseContent .= '<form method="POST">
             <label for="body">Description: </label>
             <input id="body" name="body" value="' . htmlentities($body) . '">
 
-            <input type="submit" value="Create Topic">
+            <input type="submit" class="btn btn-danger" value="Create Topic">
         </div>
     </form>
 </div>
@@ -320,9 +320,9 @@ if ($topics) {
      */
     foreach ($topics as $topic) {
         $responseContent .= '<hr />';
-        $responseContent .= '<h4> Title : ' . htmlentities($topic->getHeader()) . '</h4>';
-        $responseContent .= '<p> Description : ' . htmlentities($topic->getBody()) . '</p>';
-        $responseContent .= '<h4> Votes : ' . count($voteRepository->findAllVotesForTopic($topic)) . '</h4>';
+        $responseContent .= '<h3 class="media-heading"> Title : ' . htmlentities($topic->getHeader()) . '</h3>';
+        $responseContent .= '<p class="text-muted"> Description : ' . htmlentities($topic->getBody()) . '</p>';
+        $responseContent .= '<h3 class="media-heading"> Votes : ' . count($voteRepository->findAllVotesForTopic($topic)) . '</h3>';
         $vote = $voteRepository->findVoteFromTopicBasedOnIP($topic, $request->getClientIp());
         if (empty($vote)) {
             $responseContent .= '<form method="POST">

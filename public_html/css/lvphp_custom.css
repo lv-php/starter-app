@@ -62,3 +62,8 @@ p.about-text{
 .meetup_rsvp {
     font-size : 1.5em;
 }
+
+#topic-intro {
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
+}
