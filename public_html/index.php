@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 Adam L. Englander
+ * Copyright (c) 2014 LVPHPUG - Las Vegas PHP User's Group
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -157,18 +157,18 @@ $responseContent = '
         <li><a href="#meetup">Meetups</a></li>
          <li><a href="#topic_picker">Upcoming Topics</a></li>
           <li><a href="#sponsors">Sponsors</a></li>
-        <!--<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">More<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
+            <li><a href="discussions.php#discussion">Discussions</a></li>
+            <!--<li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li class="divider"></li>
             <li><a href="#">Separated link</a></li>
             <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="#">One more separated link</a></li>-->
           </ul>
-        </li>-->
+        </li>
       </ul>
         </li>
       </ul>
@@ -208,52 +208,58 @@ try {
     $meetup = new Meetup(array(
         'key' => '415a4025535743759555174434b7a46'
     ));
-    $events = $meetup->getEvents(array(
-        'group_urlname' => 'Las-Vegas-PHP-Users-Group'
-    ));
 
-    if($events){
-        $i=1;
-        foreach ($events as $event){
-            //show next 3 events
-            if ($i <= 3){
+    /**
+     * Use the Meetup Class to fetch upcoming events for our group
+     * The optional parameter page limits the number of responses from Meetup
+     */
 
-                $responseContent.= '<div class="media">
+    $events = $meetup->getEvents(
+        array(
+            'group_urlname' => 'Las-Vegas-PHP-Users-Group',
+            'page' => '3' //optional parameter that limits the number of responses returned
+        )
+    );
 
-                  <a class="pull-left meetup" href="'.$event->event_url.'" target="_blank">
+    if ($events) {
+
+         // If there are any events loop through and display the date, topic and a  link
+
+        foreach ($events as $event) {
+
+            $responseContent .= '<div class="media">
+
+                  <a class="pull-left meetup" href="' . $event->event_url . '" target="_blank">
                     <button class="btn btn-danger meetup" type="button">
-                    <span class="meetup-date">'.date("l M jS",($event->time)/1000) ."<br/>" .date("g:i A",($event->time)/1000). '</span>
+                    <span class="meetup-date">' . $meetup->modifyDate($event->time) . '</span>
                     </button>
 
                   </a>
 
                   <div class="media-body">
-                    <h3 class="media-heading">'.$event->name.'</h3>
+                    <h3 class="media-heading">' . $event->name . '</h3>
 
-                    <span class="text-muted">'.$event->description   .'</span>
-                    <p><a href="'.$event->event_url.'" target="_blank">
-                    <button class="btn btn-danger" type="button">
-                    <span class="meetup-date">RSVP</span> to join <span class="badge">'. $event->yes_rsvp_count .' others</span>
-                    </button>
+                    <span class="text-muted">' . $event->description . '</span>
+            <!-- Dynamically build the Meetup.com RSVP button  API to create RSVP button then display the number of users.-->
+                    <p>
+                        <a href="http://www.meetup.com/Las-Vegas-PHP-Users-Group/events/"' . $meetup->getEventIdFromURL($event->event_url) . '"
+                        data-event="' . $meetup->getEventIdFromURL($event->event_url) . '" class="mu-rsvp-btn">RSVP</a>
+                        <span class="meetup_rsvp"> to join <span class="badge">' . $event->yes_rsvp_count . '</span> others </span>
+                    </p>
+                    <p><a href="' . $event->event_url . '" target="_blank">
 
-                  </a></p>
                   Location: <br/>
-                    <a href="https://www.google.com/maps/place/'.$event->venue->address_1.','.$event->venue->city.','. $event->venue->state.'" target="_blank">'.$event->venue->name .'<br/>'.$event->venue->address_1 .'<br/>'. $event->venue->city  .', '.$event->venue->state.'
+                    <a href="https://www.google.com/maps/place/' . $event->venue->address_1 . ',' . $event->venue->city . ',' . $event->venue->state . '" target="_blank">' . $event->venue->name . '<br/>' . $event->venue->address_1 . '<br/>' . $event->venue->city . ', ' . $event->venue->state . '
                     </a>
 
                   </div>
                 </div><div class="meetup-border"></div>';
-            }
-            $i++;
 
         }
-    }
-    else{
+    } else {
         $responseContent .= '<h4>No Events Currently Scheduled</h4>';
     }
-}
-catch (Exception $e) {
-    // The default/master exception handler will log the error and display to the user
+} catch (Exception $e) {
 
     // Generate a Unique ID to identify this error
     $errorId = uniqid('ERROR-');
@@ -265,17 +271,16 @@ catch (Exception $e) {
     }
     error_log(sprintf('%s: %s', $errorId, $e->getMessage()));
 }
-$responseContent .='
-</div>
-
-
-<!-- End Meetups-->
-<!-- Begin Topic Picker -->
+$responseContent .= '
+</div>';
+//<!-- End Meetups-->
+//<!-- Begin Topic Picker -->
+$responseContent .= '
 <div class="section-even">
 <a name="topic_picker" id="topic_picker" href="topic_picker"></a>
 <div>
     <h1 class="section-header">Topics Picker</h1>
-    <p>To suggest a topic, simply enter a title and description of what you want to hear about.</p>';
+    <h3 class="media-heading" id="topic-intro" name="topic-intro">To suggest a topic, simply enter a title and description of what you want to hear about.</h3>';
 
 // If there are errors, display them to the user
 if (!empty($errors)) {
@@ -294,41 +299,41 @@ if (!empty($errors)) {
 $responseContent .= '<form method="POST">
         <div>
             <label for="header">Title: </label>
-            <input id="header" name="header" value="'. htmlentities($header) .'">
+            <input id="header" name="header" value="' . htmlentities($header) . '">
 
             <label for="body">Description: </label>
-            <input id="body" name="body" value="' . htmlentities($body) .'">
+            <input id="body" name="body" value="' . htmlentities($body) . '">
 
-            <input type="submit" value="Create Topic">
+            <input type="submit" class="btn btn-danger" value="Create Topic">
         </div>
     </form>
 </div>
 <div class="topics-list">';
 
-    if ($topics) {
-        /**
-         * @var $voteRepository LVPHP\Repositories\VoteRepository
-         */
-        $voteRepository = $entityManager->getRepository('LVPHP\Models\Vote');
-        /**
-         * @var $topic Topic
-         */
-        foreach ($topics as $topic) {
-            $responseContent .= '<hr />';
-            $responseContent .= '<h4> Title : ' . htmlentities($topic->getHeader()) . '</h4>';
-            $responseContent .= '<p> Description : ' . htmlentities($topic->getBody()) . '</p>';
-            $responseContent .= '<h4> Votes : ' . count($voteRepository->findAllVotesForTopic($topic)) . '</h4>';
-            $vote = $voteRepository->findVoteFromTopicBasedOnIP($topic, $request->getClientIp());
-            if (empty($vote)) {
-                $responseContent .= '<form method="POST">
-                                        <input type="hidden" name="topic_id" value="' . $topic->getId() .'">
+if ($topics) {
+    /**
+     * @var $voteRepository LVPHP\Repositories\VoteRepository
+     */
+    $voteRepository = $entityManager->getRepository('LVPHP\Models\Vote');
+    /**
+     * @var $topic Topic
+     */
+    foreach ($topics as $topic) {
+        $responseContent .= '<hr />';
+        $responseContent .= '<h3 class="media-heading"> Title : ' . htmlentities($topic->getHeader()) . '</h3>';
+        $responseContent .= '<p class="text-muted"> Description : ' . htmlentities($topic->getBody()) . '</p>';
+        $responseContent .= '<h3 class="media-heading"> Votes : ' . count($voteRepository->findAllVotesForTopic($topic)) . '</h3>';
+        $vote = $voteRepository->findVoteFromTopicBasedOnIP($topic, $request->getClientIp());
+        if (empty($vote)) {
+            $responseContent .= '<form method="POST">
+                                        <input type="hidden" name="topic_id" value="' . $topic->getId() . '">
                                         <input type="submit" value="Up Vote">
                                      </form>';
-            }
         }
-    } else {
-        $responseContent .= '<h4>There are currently no topics.</h4>';
     }
+} else {
+    $responseContent .= '<h4>There are currently no topics.</h4>';
+}
 
 $responseContent .= '</div></div>
 <div class="section-odd">
@@ -376,6 +381,8 @@ $responseContent .= '</div></div>
 <!--Bootstrap JS Files-->
 
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!--Meetup script for RSVP Button-->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s); js.id=id;js.async=true;js.src="https://secure.meetup.com/script/577045002335750872971/api/mu.btns.js?id=5rufi72ve0d82jgas2jp4l3a26";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","mu-bootjs");</script>
 </footer>
 </html>';
 

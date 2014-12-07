@@ -38,7 +38,7 @@ p.about-text{
     font-weight: bolder;
 }
 .meetup-date{
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-weight: bold;
 
 }
@@ -57,4 +57,13 @@ p.about-text{
 .text-muted{
     color: #737373;
     font-size: 1.2em;
+}
+
+.meetup_rsvp {
+    font-size : 1.5em;
+}
+
+#topic-intro {
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
 }
