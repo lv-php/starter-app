@@ -1,4 +1,4 @@
-# Starter App
+# LVPHP.org Site
 
 ## Overview
 
@@ -27,13 +27,14 @@ This starter app is designed to show beginning PHP developers how to:
 
 ## Pre-Requisites
 
-*   PHP 5.4 - Required for the internal web server
+*   PHP 5.3 - Required for the internal web server
 *   PHP PDO Extension - Required for database interaction - [Installation instructions](http://us2.php.net/manual/en/pdo.installation.php)
 
 ## Getting Started
 
 ### Start the Application
 
+(PHP 5.4+ only)
 Run the built in PHP web server by executing the following command in a shell from the directory containing the example:
 
     php -S localhost:8080
@@ -61,7 +62,7 @@ error ID.
 In order to use this application, the database must be prepared with a valid schema.
 Execute the following command at the command prompt from the directory containing the example:
 
-    php create_db.php
+    php vendor/bin/doctrine orm:schema-tool:create
 
 ### Access the Working Application
 
