@@ -3,3 +3,4 @@ sqlite/lvphp.sq3
 .idea/
 composer.lock
 composer.phar
+config/*prod.php
