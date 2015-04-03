@@ -51,5 +51,9 @@ if ($isDevMode) {
 $entityManager = EntityManager::create($conn, $config);
 
 // Key Authentication
-$meetupApiKey = include_once __DIR__ . '/config/meetup-api.php';
+if (file_exists(__DIR__ . '/config/meetup-api.prod.php')) {
+    $meetupApiKey = include_once __DIR__ . '/config/meetup-api.prod.php';
+} else {
+    $meetupApiKey = include_once __DIR__ . '/config/meetup-api.php';
+}
 $meetupClient = MeetupKeyAuthClient::factory(array('key' => $meetupApiKey));
