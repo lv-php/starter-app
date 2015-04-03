@@ -58,3 +58,16 @@ p.about-text{
     color: #737373;
     font-size: 1.2em;
 }
+
+.g-recaptcha {
+    display: inline-block;
+    float: left;
+}
+
+#topic-form label {
+    padding-left: 10px;
+}
+
+#topics-list {
+    margin-top: 60px;
+}

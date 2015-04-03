@@ -27,7 +27,6 @@ require_once '../bootstrap.php';
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use LVPHP\Models\Topic;
-use DMS\Service\Meetup\MeetupKeyAuthClient;
 
 $request = Request::createFromGlobals();
 
@@ -60,42 +59,60 @@ try {
 
         } else {
 
+            //Check captcha first
+            $clientIp = $request->getClientIp();
+            $gRecaptchaResponse = $request->get( 'g-recaptcha-response' );
+
+            $guzzleClient = new \Guzzle\Service\Client();
+
+            $recaptchaRequest = $guzzleClient->post('https://www.google.com/recaptcha/api/siteverify', null, array(
+                    'secret' => $recaptchaApiKey,
+                    'response' => $gRecaptchaResponse,
+                    'remoteip' => $clientIp
+            ));
+            $recaptchaResponse = $recaptchaRequest->send()->json();
+
             $header = $request->get( 'header' );
             $body   = $request->get( 'body' );
 
-            if (empty( $header )) {
-                $errors[] = 'Please enter a header for the topic.';
-            }
+            if ($recaptchaResponse['success']) {
 
-            if (empty( $body )) {
-                $errors[] = 'A description of the topic is required.';
-            }
-
-            // If the form post had no errors then we will store the data in the database
-            if ( ! $errors) {
-
-                // Use try/catch to catch any errors in saving the registration
-                try {
-                    $topic = new \LVPHP\Models\Topic( $header, $body, $request->getClientIp() );
-                    $vote  = new \LVPHP\Models\Vote( $topic, $request->getClientIp() );
-                    $entityManager->persist( $vote );
-                    $entityManager->flush();
-                    // Since the topic was created successfully, clear the form values to allow for a new topic idea
-                    $header = null;
-                    $body   = null;
-                } catch ( \Doctrine\ORM\ORMInvalidArgumentException $e ) {
-                    // Set status code to 500 due to server error
-                    $response->setStatusCode( Response::HTTP_INTERNAL_SERVER_ERROR );
-                    $message = sprintf(
-                        'Unable to save topic: %s: Topic info: [header: %s, description: %s]',
-                        $e->getMessage(),
-                        $header,
-                        $body
-                    );
-
-                    // Throw new Exception with descriptive error message so the default handler will properly log an display the error
-                    throw new Exception( $message, 0, $e ); // Set the caught exception as the previous
+                if (empty( $header )) {
+                    $errors[] = 'Please enter a header for the topic.';
                 }
+
+                if (empty( $body )) {
+                    $errors[] = 'A description of the topic is required.';
+                }
+
+                // If the form post had no errors then we will store the data in the database
+                if ( ! $errors) {
+
+                    // Use try/catch to catch any errors in saving the registration
+                    try {
+                        $topic = new \LVPHP\Models\Topic( $header, $body, $clientIp );
+                        $vote  = new \LVPHP\Models\Vote( $topic, $clientIp );
+                        $entityManager->persist( $vote );
+                        $entityManager->flush();
+                        // Since the topic was created successfully, clear the form values to allow for a new topic idea
+                        $header = null;
+                        $body   = null;
+                    } catch ( \Doctrine\ORM\ORMInvalidArgumentException $e ) {
+                        // Set status code to 500 due to server error
+                        $response->setStatusCode( Response::HTTP_INTERNAL_SERVER_ERROR );
+                        $message = sprintf(
+                            'Unable to save topic: %s: Topic info: [header: %s, description: %s]',
+                            $e->getMessage(),
+                            $header,
+                            $body
+                        );
+
+                        // Throw new Exception with descriptive error message so the default handler will properly log an display the error
+                        throw new Exception( $message, 0, $e ); // Set the caught exception as the previous
+                    }
+                }
+            } else {
+                $errors[] = 'Failed to verify captcha input, try again.';
             }
         }
     }
@@ -126,6 +143,8 @@ $responseContent = '
 <meta name="description" content="Las Vegas PHP Users Group is a community of PHP developers looking to share and learn. All events are free to attend and can be found here.">
 <meta name="keywords" content="Las Vegas PHP Users Group">
 <meta name="author" content="The LVPHPUG Community">
+<!-- JS -->
+<script src="//www.google.com/recaptcha/api.js"></script>
 <!-- JQUERY UI CSS -->
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css">
 <!-- Bootstrap CSS -->
@@ -180,7 +199,7 @@ $responseContent = '
 <!-- Header Begin -->
 <div id="top_header" class="document-header">
 <div>
-    <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/archive/2/27/20100303222348%21PHP-logo.svg/120px-PHP-logo.svg.png" alt="PHP Logo">
+    <img src="img/LVPHP-logo.png" alt="PHP Logo">
     <h1>Las Vegas PHP User Group - LVPHP.org</h1>
 </div>
 </div>
@@ -286,18 +305,21 @@ if ( ! empty( $errors )) {
 }
 
 $responseContent .= '<form method="POST">
-        <div>
+        <div id="topic-form">
+            <div class="g-recaptcha" data-sitekey="6LdUyAQTAAAAAObr4yIrSBqCf98CE0fcdOAR63j3"></div>
+
             <label for="header">Title: </label>
             <input id="header" name="header" value="' . htmlentities( $header ) . '">
 
             <label for="body">Description: </label>
             <input id="body" name="body" value="' . htmlentities( $body ) . '">
 
+
             <input type="submit" value="Create Topic">
         </div>
     </form>
 </div>
-<div class="topics-list">';
+<div id="topics-list">';
 
 if ($topics) {
     /**

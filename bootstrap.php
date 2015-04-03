@@ -50,7 +50,14 @@ if ($isDevMode) {
 // Obtaining the entity manager
 $entityManager = EntityManager::create($conn, $config);
 
-// Key Authentication
+// reCaptcha key
+if (file_exists(__DIR__ . '/config/recaptcha.prod.php')) {
+    $recaptchaApiKey = include_once __DIR__ . '/config/recaptcha.prod.php';
+} else {
+    $recaptchaApiKey = include_once __DIR__ . '/config/recaptcha.php';
+}
+
+// Meetup.com Key Authentication
 if (file_exists(__DIR__ . '/config/meetup-api.prod.php')) {
     $meetupApiKey = include_once __DIR__ . '/config/meetup-api.prod.php';
 } else {
