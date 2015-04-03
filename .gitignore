@@ -4,3 +4,4 @@ sqlite/lvphp.sq3
 composer.lock
 composer.phar
 config/*prod.php
+src/LVPHP/Proxies
