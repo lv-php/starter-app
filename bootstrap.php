@@ -16,10 +16,11 @@ require_once 'vendor/autoload.php';
 require_once 'sqlite/connect_db.php';
 
 use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager, Doctrine\ORM\Configuration;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use DMS\Service\Meetup\MeetupKeyAuthClient;
 
 // Path to entities
 $paths = array(__DIR__ . '/src/LVPHP/Models');
@@ -48,3 +49,7 @@ if ($isDevMode) {
 
 // Obtaining the entity manager
 $entityManager = EntityManager::create($conn, $config);
+
+// Key Authentication
+$meetupApiKey = include_once __DIR__ . '/config/meetup-api.php';
+$meetupClient = MeetupKeyAuthClient::factory(array('key' => $meetupApiKey));
