@@ -133,8 +133,8 @@ try {
     }
     error_log( sprintf( '%s: %s', $errorId, $e->getMessage() ) );
 }
-
-include 'header.php';
+// include header
+include '../php_includes/header.php';
 $responseContent = '
 <!-- About Us Begin -->
 <div class="section-odd">
@@ -320,7 +320,7 @@ $responseContent .= '</div></div>
 ';
 
 //include footer
-include 'footer.php';
+include '../php_includes/footer.php';
 // Set and send response
 $response->setContent( $responseContent );
 $response->send();
