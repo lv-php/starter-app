@@ -7,12 +7,23 @@
  * File Name: header.php
  * Project: starter-app
  */
+// Are we in development mode?
+$isDevMode = false;
+
+if ($isDevMode) {
 
 //get the relative path of the project.
-$root = $_SERVER['DOCUMENT_ROOT'];
-$directory =  __DIR__;
-$project_path = str_replace($root, '', $directory);
-define(WEB_ROOT, $project_path);
+    $root = $_SERVER['DOCUMENT_ROOT'];
+    $directory =  __DIR__;
+    $project_path = str_replace('php_includes', 'public_html' ,str_replace($root, '', $directory));
+    define(WEB_ROOT, $project_path);
+
+} else {
+
+    define(WEB_ROOT, '');
+
+}
+
 
 ?>
 <!DOCTYPE html>
