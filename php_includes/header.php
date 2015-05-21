@@ -8,7 +8,7 @@
  * Project: starter-app
  */
 // Are we in development mode?
-$isDevMode = false;
+$isDevMode = true;
 
 if ($isDevMode) {
 
