@@ -16,10 +16,11 @@ require_once 'vendor/autoload.php';
 require_once 'sqlite/connect_db.php';
 
 use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager, Doctrine\ORM\Configuration;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use DMS\Service\Meetup\MeetupKeyAuthClient;
 
 // Path to entities
 $paths = array(__DIR__ . '/src/LVPHP/Models');
@@ -48,3 +49,18 @@ if ($isDevMode) {
 
 // Obtaining the entity manager
 $entityManager = EntityManager::create($conn, $config);
+
+// reCaptcha key
+if (file_exists(__DIR__ . '/config/recaptcha.prod.php')) {
+    $recaptchaApiKey = include_once __DIR__ . '/config/recaptcha.prod.php';
+} else {
+    $recaptchaApiKey = include_once __DIR__ . '/config/recaptcha.php';
+}
+
+// Meetup.com Key Authentication
+if (file_exists(__DIR__ . '/config/meetup-api.prod.php')) {
+    $meetupApiKey = include_once __DIR__ . '/config/meetup-api.prod.php';
+} else {
+    $meetupApiKey = include_once __DIR__ . '/config/meetup-api.php';
+}
+$meetupClient = MeetupKeyAuthClient::factory(array('key' => $meetupApiKey));
