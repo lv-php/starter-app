@@ -13,7 +13,7 @@ if (!$isDevMode) {
 }
 
 require_once 'vendor/autoload.php';
-require_once 'sqlite/connect_db.php';
+require_once 'resources/sqlite/connect_db.php';
 
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;

@@ -1,12 +1,5 @@
 <?php
-/**
- * Created using PhpStorm.
- * User: shad
- * Date: 4/15/15
- * Time: 10:36 AM
- * File Name: meetings.php
- * Project: starter-app
- */
+// @todo Introduce routing to avoid having a php file for each separate page.
 
 require_once '../bootstrap.php';
 
@@ -26,10 +19,10 @@ $response = new Response(
 
 
 // include header
-include '../php_includes/header.php';
+include '../resources/view/header.php';
 
 // Get the list of meetings which are markdown files in the meetings directory
-$meetings = array_diff(scandir('../meetings'), array('.', '..'));
+$meetings = array_diff(scandir('../resources/meetings'), array('.', '..'));
 
 // Sort newest to oldest. Files should be named in format yyyymmdd.md as in 20150402.md for the april 2nd 2015 meetup
 rsort($meetings);
@@ -51,7 +44,7 @@ rsort($meetings);
 
                 $file = explode('.', $meeting);
                 $date =  $file[0];
-                $display_contents .= '<a href="' . WEB_ROOT . '/meetings.php?date=' . $date . '"><button class="btn btn-danger meetup">LVPHP Meeting: ' . date('m/d/y', strtotime($date)) . '</button></a>';
+                $display_contents .= '<a href="/meetings.php?date=' . $date . '"><button class="btn btn-danger meetup">LVPHP Meeting: ' . date('m/d/y', strtotime($date)) . '</button></a>';
                 $display_contents .= '<hr/>';
 
             }
@@ -61,7 +54,7 @@ rsort($meetings);
     } else {
 
         // Get the contents of the file related to meeting date
-        $text = file_get_contents('../meetings/'. $_GET['date'].'.md');
+        $text = file_get_contents('../resources/meetings/' . $_GET['date'] . '.md');
 
         /**
          * If we didn't find the file or the file is empty display meeting list again
@@ -97,7 +90,7 @@ rsort($meetings);
     }
 
 //include footer
-include '../php_includes/footer.php';
+include '../resources/view/footer.php';
 
 
 

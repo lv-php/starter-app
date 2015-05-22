@@ -1,31 +1,3 @@
-<?php
-/**
- * Created using PhpStorm.
- * User: shad
- * Date: 4/15/15
- * Time: 10:17 AM
- * File Name: header.php
- * Project: starter-app
- */
-// Are we in development mode?
-$isDevMode = true;
-
-if ($isDevMode) {
-
-//get the relative path of the project.
-    $root = $_SERVER['DOCUMENT_ROOT'];
-    $directory =  __DIR__;
-    $project_path = str_replace('php_includes', 'public_html' ,str_replace($root, '', $directory));
-    define('WEB_ROOT', $project_path);
-
-} else {
-
-    define('WEB_ROOT', '' );
-
-}
-
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,10 +11,9 @@ if ($isDevMode) {
 <!-- JQUERY UI CSS -->
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css">
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" type="text/css" href="../public_html/css/bootstrap.min.css">
-<link rel="stylesheet" href="../public_html/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../public_html/css/lvphp_custom.css">
-<link rel="shortcut icon" type="image/x-icon" href="../public_html/img/favicon.ico"/>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/lvphp_custom.css">
+<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"/>
 </head>
 <body>
 
@@ -64,11 +35,11 @@ if ($isDevMode) {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="<?php echo WEB_ROOT;?>/#about">About Us</a></li>
-        <li><a href="<?php echo WEB_ROOT;?>/#meetup">Meetups</a></li>
-         <li><a href="<?php echo WEB_ROOT;?>/#topic_picker">Upcoming Topics</a></li>
-          <li><a href="<?php echo WEB_ROOT;?>/#sponsors">Sponsors</a></li>
-          <li><a href="<?php echo WEB_ROOT;?>/meetings.php">Meetings</a></li>
+        <li <?php /* @todo create a way to highlight what page you are on with 'class="active" */?>><a href="/#about">About Us</a></li>
+        <li><a href="/#meetup">Meetups</a></li>
+         <li><a href="/#topic_picker">Upcoming Topics</a></li>
+          <li><a href="/#sponsors">Sponsors</a></li>
+          <li><a href="/meetings.php">Previous Meeting Resources</a></li>
         <!--<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
