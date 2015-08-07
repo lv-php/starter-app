@@ -364,11 +364,11 @@ $responseContent .= '</div></div>
   </div>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="img/logo_estrella.png" alt="Estrella Insurance">
+      <img src="img/logo_teksystems.png" alt="TekSystems">
       <div class="caption">
-        <h3 class="thumbnail-title">Estrella Insurance</h3>
-        <p>Estrella Insurance pays for Meetup.com expenses.</p>
-        <p><a href="http://www.directoestrella.com/" target="_blank" class="btn btn-primary" role="button">Learn More</a> </p>
+        <h3 class="thumbnail-title">TekSystems</h3>
+        <p>TekSystems pays for Meetup.com expenses and provides food/drink to our events. If your looking for a job, contact Branson Real (702) 789-2240.</p>
+        <p><a href="http://www.teksystems.com/" target="_blank" class="btn btn-primary" role="button">Learn More</a> </p>
       </div>
     </div>
   </div>
