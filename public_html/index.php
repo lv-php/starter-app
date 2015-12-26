@@ -1,4 +1,3 @@
-
 <?php
     /**
      * Copyright (c) 2014 Adam L. Englander
@@ -20,9 +19,9 @@
      * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
      * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      */
-    // Init our db connection and other stuff
+// Init our db connection and other stuff
     require_once '../bootstrap.php';
-    // Init our request/response objects
+// Init our request/response objects
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\HttpFoundation\Request;
     use LVPHP\Models\Topic;
@@ -32,14 +31,14 @@
         Response::HTTP_OK,
         array( 'content-type' => 'text/html' )
     );
-    // Initialize our variables used in the template
+// Initialize our variables used in the template
     $errors          = array();
     $header          = null;
     $body            = null;
     $topics          = null;
     $upvote          = null;
     $responseContent = null;
-    // Add a generic try catch around the entire PHP code section to ensure we catch any errors
+// Add a generic try catch around the entire PHP code section to ensure we catch any errors
     try {
         if ($request->isMethod( 'POST' )) {
             // Check for upvote on topic
@@ -111,7 +110,7 @@
         }
         error_log( sprintf( '%s: %s', $errorId, $e->getMessage() ) );
     }
-    // include header
+// include header
     include '../resources/view/header.php';
     $responseContent = '
 <!-- About Us Begin -->
@@ -185,7 +184,7 @@
 <div>
     <h1 class="section-header">Topics Picker</h1>
     <p>To suggest a topic, simply enter a title and description of what you want to hear about.</p>';
-    // If there are errors, display them to the user
+// If there are errors, display them to the user
     if ( ! empty( $errors )) {
         $responseContent .= '<div class="errors">
                             <h3 class="error-heading">Errors were encountered wth your topic</h3>
@@ -272,8 +271,8 @@
 </div>
 </body>
 ';
-    //include footer
+//include footer
     include '../resources/view/footer.php';
-    // Set and send response
+// Set and send response
     $response->setContent( $responseContent );
     $response->send();
